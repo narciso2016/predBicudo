@@ -220,11 +220,11 @@ else :
                                                 if(temp < 21.19):
                                                      print ("muito alta")
                                                 else:
-                                                     print ("muito baixa")
+                                                     print ("media")
  
                  else:
                         if(temp < 22.71):
-                           print ("muito alta")
+                           print ("alta")
                         else:
                            print ("muito baixa")
  
