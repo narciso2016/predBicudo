@@ -1,0 +1,183 @@
+i<!doctype html>
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <meta name="robots" content="all" />
+   <meta name="keywords" content="bicudo, algodao, algod&atilde;o" />
+   <meta name="description" content="Predi&ccedil;&atilde;o de aparecmento de popula&ccedil;&atilde;o de bicudo." />
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <meta name="Author" content="Marcelo G Narciso">
+   <meta name="GENERATOR" content="Mozilla/4.76 [en] (WinNT; U) [Netscape]">
+   <title>PredBicudo</title>
+   <link href="css/singlePage.css" rel="stylesheet" type="text/css">
+   <script src="js/getPrediction.js"></script>
+
+   <script language="javascript">
+
+      function popup(){
+           varWindow = window.open ('help.pdf', 'popup')
+      }
+
+      function valida(vmin, vmax, varClim, tipo) {
+
+           if( tipo == 1 )
+              numero = (typeof document.getElementById("tar").value === 'undefined' )? "": document.getElementById("tar").value;
+           else
+             if( tipo == 2 )
+               numero = (typeof document.getElementById("ur").value === 'undefined')? "": document.getElementById("ur").value;
+             else
+               if( tipo == 3 )
+                  numero = (typeof document.getElementById("ppt").value === 'undefined')? "": document.getElementById("ppt").value;
+               else
+                 if( tipo == 4 )
+                    numero = (typeof document.getElementById("vv").value === 'undefined')? "": document.getElementById("vv").value;
+                 else
+                   if( tipo == 5 )
+                     numero = (typeof document.getElementById("torv").value === 'undefined')? "": document.getElementById("torv").value;
+                   else
+                     if( tipo == 6 )
+                       numero = (typeof document.getElementById("evt").value === 'undefined')? "": document.getElementById("evt").value;
+                     else
+                       if( tipo == 7 )
+                         numero = (typeof document.getElementById("rs").value === 'undefined')? "": document.getElementById("rs").value;
+
+           if( numero.length == 0) {
+
+                alert('O valor da variavel '+ varClim + ' nao deve ser nulo. Insira um valor entre ' + vmin + ' e ' + vmax);
+                return 0;
+           }
+
+           var n = numero.search(/[a-zA-Z]/i);
+           if( n >= 0 )
+              {
+                alert('O valor da variaval ' + + varClim + '  nao deve ter letras.');
+                return 0;
+              } 
+           else
+              {
+                 n = numero.search(/,/);
+                 if(numero.charAt(n) == ',' ) {
+
+                    numero = numero.replace(/[,]/ig, ".");
+                    document.getElementById("tar").value = numero;
+                
+                 }
+
+                 if( parseFloat(numero) < vmin || parseFloat(numero) > vmax) {
+                   alert(' Para a variavel '+ varClim + ', escolha um valor entre ' + vmin + ' e ' + vmax);
+                   return 0
+                 }
+                 else
+                   return 1;
+              }
+      }
+ 
+      function verifica()
+        {
+
+
+ 
+          tar = valida(-20, 50, "temperatura do ar", 1);
+          if( tar == 1) {
+              ur = valida(0, 100, "umidade relativa do ar", 2);
+              if( ur == 1) {
+                ppt = valida(0, 100, "precipitacao", 3);
+                if(ppt == 1) {
+                   vv = valida(0, 20, "velocidade do vento", 4);
+                   if( vv == 1 ) {
+                      torv =  valida(-20, 50, "temperatura do ponto de orvalho", 5);
+                      if(torv == 1) {
+                         evt = valida(0, 100, "evapotranspiracao", 6);
+                         if ( evt == 1 ) {
+                             rs = valida(0, 1000, "radiacao solar",  7);
+                             if( rs == 1 ) { 
+                                  id = document.getElementById("mes").selectedIndex;
+                                  opcao = document.getElementById("mes").options[id].value;
+                                  if ( parseInt(opcao) == 0 )
+                                    {
+                                      alert("Escolha o mes.");
+ 
+                                    }
+                                  else {
+                                          tar = document.getElementById("tar").value;
+                                          ur = document.getElementById("ur").value;
+                                          ppt = document.getElementById("ppt").value;
+                                          vv = document.getElementById("vv").value;
+                                          rs = document.getElementById("rs").value;
+                                          evt = document.getElementById("evt").value;
+                                          torv = document.getElementById("torv").value;
+                                          mes = parseInt(opcao);
+
+                                          getPrediction(tar, ur, ppt, vv, rs, evt, torv, mes);
+
+                                       }
+                             }
+                         }
+                      }
+                   }
+                }
+              }
+          }
+
+        } // final de function verifica()
+ 
+
+   </script>
+
+</head>
+<body>
+               <center>
+               <table border=0>
+                     <tr><td><img SRC="imagens/embrapaArrozFeijao2.jpg" ALT="Embrapa Arroz e Feij&atilde;o" BORDER=0></td></tr>
+                     <tr><td><br><h3  style="background-color: green; font-size:24px; color:white; font-weight:bold; margin-left:0px; margin-right: 0px"><center> Sistema para predizer a presen&ccedil;a de bicudos na lavoura de algod&atilde;o </center></h3></td></tr>
+                     <tr><td><br><h2  style="font-size:24px; color:green; font-weight:bold; margin-left:0px; margin-right: 0px"></h2></td></tr>
+                     <tr><td><center><table border = 0>
+
+               </table>
+               </center>
+
+<!-- box do conteú formuláo -->
+<br>
+<br>
+<div id="conteudoPrincipal">
+  <form name = form1 id = form1>
+    <div id="colunaForm">
+
+      <p>Temperatur do ar:</p>
+      <input type="text" maxlength="10" name="tar" id="tar" value="" placeholder="valores entre -20 e 50"  style="color: #669900; padding-left:10px; height: 30px; font-weight: bold; width: 100%;" size=10>
+
+      <p>Umidade relativa do ar:</p>
+      <input type="text" maxlength="10" name="ur" id="ur" value="" placeholder="valores entre 0 e 100"   style="color: #669900; padding-left:10px; height: 30px; font-weight: bold; width: 100%;" size=10>
+
+      <p>Precipita&ccedil;&atilde;o:</p>
+      <input type="text" maxlength="10" name="ppt" id="ppt" value="" placeholder="valores entre 0 e 100"  style="color: #669900; padding-left:10px; height: 30px; font-weight: bold; width: 100%;" size=10>
+
+      <p>Velocidade do vento:</p>
+      <input type="text" maxlength="10" name="vv" id="vv" value="" placeholder="valores entre 0 e 20"  style="color: #669900; padding-left:10px; height: 30px; font-weight: bold; width: 100%;" size=10>
+
+    </div>
+    <div id="colunaForm">
+      <p>Temperatura do ponto de orvalho:</p>
+      <input type="text" maxlength="10" name="torv" id="torv" value="" placeholder="valores entre -20 e 50"   style="color: #669900; padding-left:10px; height: 30px; font-weight: bold; width: 100%;" size=10>
+
+      <p>Evapotranspira&ccedil;&atilde;o:</p>
+      <input type="text" maxlength="10" name="evt" id="evt" value="" placeholder="valores entre 0 e 100"   style="color: #669900; padding-left:10px; height: 30px; font-weight: bold; width: 100%;" size=10>
+
+      <p>Radia&ccedil;&atilde;o solar:</p>
+      <input type="text" maxlength="10" name="rs" id="rs" value="" placeholder="valores entre 0 e 1000"   style="color: #669900; padding-left:10px; height: 30px; font-weight: bold; width: 100%;" size=10>
+
+      <p>M&ecirc;s</p>
+      <select name="mes" id="mes"  style="HEIGHT: 32px; WIDTH: 193px" style="color:#669900; font-size: 24px; height: 30px;">
+      <option value =0 style="color:#669900; font-size: 14px;"> --Escolha o mes--</option>
+      <option value =1 style="color:#669900; font-size: 14px;">janeiro</option><option value =2 style="color:#669900; font-size: 14px;">fevereiro</option><option value =3 style="color:#669900; font-size: 14px;">mar&ccedil;o</option>
+      <option value =4 style="color:#669900; font-size: 14px;">abril</option><option value =5 style="color:#669900; font-size: 14px;">maio</option><option value =6 style="color:#669900; font-size: 14px;">junho</option>
+      <option value =7 style="color:#669900; font-size: 14px;">julho</option><option value =8 style="color:#669900; font-size: 14px;">agosto</option><option value =9 style="color:#669900; font-size: 14px;">setembro</option>
+      <option value =10 style="color:#669900; font-size: 14px;">outubro</option><option value =11 style="color:#669900; font-size: 14px;">novembro</option><option value =12 style="color:#669900; font-size: 14px;">dezembro</option>
+      </select>
+
+      <p><br><a href="javascript:verifica()" class="botao">Acessar</a>            <a href="javascript:popup()" class="botao">Ajuda</a></p>
+    </div>
+  </form>
+</div>
+</body>
+</html>
