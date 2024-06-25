@@ -178,9 +178,6 @@ else:
                         else:
                           if(mes == 12):  
                               mes12 = 1
-
-
-
 if ( ur < 42.97 ):
 
       if(temp < 26.3): 
@@ -190,10 +187,13 @@ if ( ur < 42.97 ):
             if(mes10 < 0.5):
 
                if(mes9 < 0.5):
-                               if(temp < 26.61):
-                                                print ("muito baixa")
-                               else:
-                                                print ("baixa")
+                               if(temp >= 26.61 and torv >= 10.58):
+                                                print ("media")
+                               else: 
+                                   if(temp < 26.61):
+                                         print ("muito baixa")
+                                   else:
+                                         print ("baixa")
                 
                else:
                                if(temp < 29.08 ):
@@ -223,10 +223,16 @@ else :
                                                      print ("muito baixa")
  
                  else:
-                        if(temp < 22.71):
-                           print ("muito alta")
-                        else:
+                        if(precipt >= 0.02 and eto < 2.64 and radSolar < 32.81):
                            print ("muito baixa")
+                        else:
+                             if(temp < 22.71):
+                                 print ("muito alta")
+                             else:
+                                 print ("muito baixa")
  
 print ("\n")
+
+
+  
 
